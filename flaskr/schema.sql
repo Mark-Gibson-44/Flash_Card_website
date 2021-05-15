@@ -1,0 +1,32 @@
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS flash_card;
+DROP TABLE IF EXISTS deck;
+DROP TABLE IF EXISTS saved_decks;
+
+CREATE TABLE user (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
+    
+);
+
+CREATE TABLE saved_decks(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    deck_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    FOREIGN KEY (deck_id) REFERENCES deck(id),
+    FOREIGN KEY (user_id) REFERENCES user(id)
+);
+
+CREATE TABLE deck (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    set_name TEXT NOT NULL
+);
+
+CREATE TABLE flash_card (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    deck_id INTEGER NOT NULL,
+    front_card TEXT NOT NULL,
+    back_card TEXT NOT NULL,
+    FOREIGN KEY (deck_id) REFERENCES deck (id)
+);
