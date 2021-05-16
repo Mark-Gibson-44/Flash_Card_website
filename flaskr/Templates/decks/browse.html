@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for deck in decks %}
+        <article class="post">
+            <header>
+       
+                <div>
+                    <h1>{{ deck['set_name'] }} <a href="{{url_for('decks.deck_browse', deck_id=deck['id'])}}"> Check out</a></h1>
+                </div>
+            </header>
+            
+        </article>
+        {% if not loop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

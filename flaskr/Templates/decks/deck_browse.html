@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for card in deck %}
+        <article class="post">
+            <header>
+       
+                <div>
+                    <h1>{{ card['front_card'] }}  {{ card['back_card'] }}</h1>
+                
+                </div>
+            </header>
+            
+        </article>
+        {% if not loop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+    <div>
+        <a>Add Card</a>
+    </div>
+{% endblock %}
