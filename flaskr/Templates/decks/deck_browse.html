@@ -13,10 +13,14 @@
             
         </article>
         {% if not loop.last %}
+            <h1>SPAM</h1>
+            
             <hr>
+           
         {% endif %}
+        
     {% endfor %}
     <div>
-        <a>Add Card</a>
+        <a  href="{{url_for('decks.add_card', deck_id=1)}}">Add Card</a>
     </div>
 {% endblock %}

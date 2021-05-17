@@ -44,6 +44,21 @@ def get_cards(deck_id):
 
     return card
 
+@bp.route('/<int:deck_id>/decks/add_card',  methods=('GET', 'POST'))
+def add_card(deck_id):
+    if request.method == 'POST':
+        front = request.form['front']
+        back = request.form['back']
+        db = get_db()
+        db.execute(
+            'INSERT INTO card flash_card (deck_id, front_card, back_card)'
+            'VALUES (?, ?, ?)',
+            (deck_id, front, back,)
+        )
+        db.commit()
+    return render_template('decks/add_card.html')
+
+
 
 def get_all_decks():
     deck = get_db().execute(
