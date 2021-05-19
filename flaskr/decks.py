@@ -26,9 +26,9 @@ def browse():
 
 @bp.route('/<int:deck_id>/decks/deck_browse')
 def deck_browse(deck_id):
-    cards = get_cards(deck_id)
+    deck = get_cards(deck_id)
   
-    return render_template('decks/deck_browse.html', card=cards)
+    return render_template('decks/deck_browse.html', deck=deck)
 
 
 
@@ -41,7 +41,7 @@ def get_cards(deck_id):
         WHERE d.id = ?""",
         (deck_id,)
     ).fetchall()
-
+    print(card)
     return card
 
 @bp.route('/<int:deck_id>/decks/add_card',  methods=('GET', 'POST'))
@@ -51,12 +51,15 @@ def add_card(deck_id):
         back = request.form['back']
         db = get_db()
         db.execute(
-            'INSERT INTO card flash_card (deck_id, front_card, back_card)'
+            'INSERT INTO  flash_card (deck_id, front_card, back_card)'
             'VALUES (?, ?, ?)',
             (deck_id, front, back,)
         )
         db.commit()
     return render_template('decks/add_card.html')
+
+def delete_card(card_id):
+    pass
 
 
 

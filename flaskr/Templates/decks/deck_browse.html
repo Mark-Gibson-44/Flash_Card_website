@@ -6,20 +6,23 @@
             <header>
        
                 <div>
-                    <h1>{{ card['front_card'] }}  {{ card['back_card'] }}</h1>
+                    <h1>{{ card['front_card'] }} {{ card['back_card'] }}</h1>
                 
                 </div>
             </header>
             
         </article>
         {% if not loop.last %}
-            <h1>SPAM</h1>
+        <div>
+            <a  href="{{url_for('decks.deck_brose', card_id=1)}}">Delete</a>
+        </div>
             
-            <hr>
+            
            
         {% endif %}
         
     {% endfor %}
+    <hr>
     <div>
         <a  href="{{url_for('decks.add_card', deck_id=1)}}">Add Card</a>
     </div>
