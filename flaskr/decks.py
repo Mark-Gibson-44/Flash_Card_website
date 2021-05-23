@@ -36,7 +36,7 @@ def deck_browse(deck_id):
 def get_cards(deck_id):
     db = get_db()
     card = db.execute(
-        """SELECT deck_id, front_card, back_card
+        """SELECT deck_id, front_card, back_card, flash_card.id
         FROM flash_card  JOIN deck d ON deck_id = d.id
         WHERE d.id = ?""",
         (deck_id,)
@@ -58,8 +58,18 @@ def add_card(deck_id):
         db.commit()
     return render_template('decks/add_card.html')
 
-def delete_card(card_id):
-    pass
+@bp.route('/<int:deck_id>/<int:card_id>/decks/delete_card')
+def delete_card(deck_id, card_id):
+    db = get_db()
+    
+    
+    
+    db.execute('DELETE FROM flash_card WHERE deck_id = ? AND id = ?',(deck_id, card_id,)).fetchone()
+    db.commit()
+
+    return redirect(url_for('index'))
+
+
 
 
 

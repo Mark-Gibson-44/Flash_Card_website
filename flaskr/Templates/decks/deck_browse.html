@@ -14,7 +14,7 @@
         </article>
         {% if not loop.last %}
         <div>
-            <a  href="{{url_for('decks.deck_brose', card_id=1)}}">Delete</a>
+            <a  href="{{url_for('decks.delete_card', deck_id=card['deck_id'], card_id=card['id'])}}">Delete</a>
         </div>
             
             
