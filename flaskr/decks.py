@@ -41,7 +41,7 @@ def get_cards(deck_id):
         WHERE d.id = ?""",
         (deck_id,)
     ).fetchall()
-    print(card)
+    
     return card
 
 @bp.route('/<int:deck_id>/decks/add_card',  methods=('GET', 'POST'))
@@ -105,3 +105,43 @@ def create_deck():
             db.commit()
             
     return render_template('decks/add.html')
+
+@bp.route('/<int:deck_id>/<int:user_id>/', methods=('GET', 'POST'))
+@login_required
+def save_deck(deck_id, user_id):
+    
+    db = get_db()
+    db.execute('INSERT INTO saved_decks (deck_id, user_id) VALUES (?, ?)', (deck_id, user_id,))
+    db.commit()
+    
+    return  redirect(url_for('index'))
+
+
+@bp.route('/<int:u_id>/decks/browse_saved')
+def browse_saved(u_id):
+    db = get_db()
+    saved_decks = db.execute(
+        'SELECT deck.id, set_name FROM deck JOIN saved_decks s ON deck.id = s.deck_id'
+        ' Where s.user_id = ?'
+        , (u_id,)).fetchall()
+    
+
+
+    
+    return render_template('decks/saved.html', saved_decks=saved_decks)
+
+
+@bp.route('/decks/front/<int:deck_id>/<int:card_id>/')
+def get_front(deck_id, card_id):
+    db = get_db()
+    card = db.execute('SELECT id, deck_id, front_card FROM flash_card WHERE deck_id = ? AND id = ?', (deck_id, card_id,)).fetchone()
+    
+    return render_template('decks/front_face.html', card=card)
+
+@bp.route('/decks/back/<int:deck_id>/<int:card_id>/')
+def get_back(deck_id, card_id):
+    print(deck_id, card_id)
+    db = get_db()
+    card = db.execute('SELECT id, deck_id, back_card FROM flash_card WHERE deck_id = ? AND id = ?', (deck_id, card_id,))
+    
+    return render_template('decks/front_face.html', card=card)

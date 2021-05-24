@@ -4,8 +4,10 @@
     <h1>{% block title %}Decks{% endblock %}</h1>
     {% if g.user %}
         <a class="action" href="{{ url_for('decks.create_deck') }}">New</a>
+        <a class="action" href="{{ url_for('decks.browse_saved', u_id=g.user['id']) }}">Browse Saved Decks</a>
     {% endif %}
     <a class="action" href="{{ url_for('decks.browse') }}">Browse Created Decks</a>
+    
 {% endblock %}
 
 {% block content %}

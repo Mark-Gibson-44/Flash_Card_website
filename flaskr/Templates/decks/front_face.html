@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ card['front_card'] }}</h1>
+
+    <button href="{{ url_for('decks.get_back', deck_id=card['deck_id'], card_id=card['id']) }}">Flip</button>
+    
+{% endblock %}
