@@ -3,5 +3,6 @@
 {% block content %}
     <h1>{{ card['back_card'] }}</h1>
 
-    <button>Flip</button>
+    <a href="{{ url_for('decks.get_front', deck_id=card['deck_id'], card_id=id) }}">Flip</a>
+    <a href="{{ url_for('decks.get_back', deck_id=card['deck_id'], card_id=id+1) }}">Next</a>
 {% endblock %}

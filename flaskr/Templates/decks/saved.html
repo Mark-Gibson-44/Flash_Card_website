@@ -7,7 +7,7 @@
        
                 <div>
                     <h1>{{ deck['set_name'] }} <a href="{{url_for('decks.deck_browse', deck_id=deck['id'])}}"> Check out</a>
-                    <a href = "{{url_for('decks.get_front', deck_id=deck['id'], card_id=1)}}">Practice</a>
+                    <a href = "{{url_for('decks.get_front', deck_id=deck['id'], card_id=0)}}">Practice</a>
                     </h1>
                 </div>
             </header>

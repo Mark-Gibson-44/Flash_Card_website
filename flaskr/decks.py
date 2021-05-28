@@ -28,7 +28,7 @@ def browse():
 def deck_browse(deck_id):
     deck = get_cards(deck_id)
   
-    return render_template('decks/deck_browse.html', deck=deck)
+    return render_template('decks/deck_browse.html', deck=deck, id=deck_id)
 
 
 
@@ -134,14 +134,17 @@ def browse_saved(u_id):
 @bp.route('/decks/front/<int:deck_id>/<int:card_id>/')
 def get_front(deck_id, card_id):
     db = get_db()
-    card = db.execute('SELECT id, deck_id, front_card FROM flash_card WHERE deck_id = ? AND id = ?', (deck_id, card_id,)).fetchone()
-    
-    return render_template('decks/front_face.html', card=card)
+    card = db.execute('SELECT deck_id, front_card FROM flash_card WHERE deck_id = ?', (deck_id, )).fetchall()
+    if card_id >= len(card):
+        return redirect(url_for('index'))
+    return render_template('decks/front_face.html', card=card[card_id], id=card_id)
 
 @bp.route('/decks/back/<int:deck_id>/<int:card_id>/')
 def get_back(deck_id, card_id):
-    print(deck_id, card_id)
-    db = get_db()
-    card = db.execute('SELECT id, deck_id, back_card FROM flash_card WHERE deck_id = ? AND id = ?', (deck_id, card_id,))
     
-    return render_template('decks/front_face.html', card=card)
+    db = get_db()
+    card = db.execute('SELECT deck_id, back_card FROM flash_card WHERE deck_id = ?', (deck_id, )).fetchall()
+    
+    if card_id >= len(card):
+        return redirect(url_for('index'))
+    return render_template('decks/back_face.html', card=card[card_id], id=card_id)

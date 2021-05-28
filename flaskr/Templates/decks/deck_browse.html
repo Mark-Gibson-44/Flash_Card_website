@@ -6,7 +6,7 @@
             <header>
        
                 <div>
-                    <h1>{{ card['front_card'] }} {{ card['back_card'] }}</h1>
+                    <h1>{{ card['front_card'] }} :::: {{ card['back_card'] }}</h1>
                 
                 </div>
             </header>
@@ -24,6 +24,6 @@
     {% endfor %}
     <hr>
     <div>
-        <a  href="{{url_for('decks.add_card', deck_id=1)}}">Add Card</a>
+        <a  href="{{url_for('decks.add_card', deck_id=id)}}">Add Card</a>
     </div>
 {% endblock %}
